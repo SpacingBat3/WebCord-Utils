@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "ES2021",
+    /* Specify what module code is generated. */
+    "module": "commonjs",
+    /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    "declaration": true,
+    /* Create source map files for emitted JavaScript files. */
+    "sourceMap": true,                                
+    /* Specify an output folder for all emitted files. */
+    "outDir": "./dist",
+    /* Enable all strict type-checking options. */
+    "strict": true,
+    /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true                                 
+  },
+  "include": [
+    "sources/**/*.ts"
+  ],
+}
