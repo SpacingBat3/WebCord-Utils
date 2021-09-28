@@ -45,7 +45,7 @@ const JSONC = {
      * 
      * @param file Object containing `path` to file and optionally its `encoding`.
      * 
-     * @param rules Array of `CommentRuleObject` objects that will be included to `commentRules`.
+     * @param rules Additional comment rules to be included by the parser.
      * 
      * @returns Parsed JavaScript object.
      * 

@@ -1,6 +1,6 @@
 {
   "name": "@spacingbat3/jsonc-parser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple JSON with Comments file format parser.",
   "main": "dist/jsoncParser.js",
   "scripts": {
@@ -10,6 +10,14 @@
     "jsonc",
     "webcord"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpacingBat3/WebCord-Utils"
+  },
+  "bugs": {
+    "url": "https://github.com/SpacingBat3/WebCord-Utils/issues"
+  },
+  "homepage": "https://github.com/SpacingBat3/WebCord-Utils#readme",
   "author": {
     "name": "SpacingBat3",
     "email": "npm@spacingbat3.anonaddy.com",
