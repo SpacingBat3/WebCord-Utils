@@ -30,10 +30,6 @@ const parsedObject = JSONC.parse('file.jsonc')
 console.log(parsedObject) // e.g. { "foo": "bar" }
 ```
 
-## Advanced usage
-
-### 
-
 ### Custom comments formats
 
 By the default, `jsonc-parser` only accepts the comments that are valid for the
@@ -43,13 +39,11 @@ you may specify them as shown below:
 ``` ts
 import JSONC from '@spacingbat3/jsonc-parser'
 
-const myCustomRules = [
-    { rule: /#.*/ },                     // e.g. `# My comment`
-    { rule: />>.*/, multiline: 'start' } // e.g. `>> First line of a comment`
-    { rule: /.*<</, multiline: 'end' }   // e.g. `Last line of a comment <<`
-]
-
-const parsedObject = JSONC.parse('file.jsonc', myCustomRules)
+/* 
+ * Removes the JavaScript-like comments and `sh`-like comments
+ * (e.g. `{ "foo": "bar" # comment }`).
+ */
+const parsedObject = JSONC.parse('file.jsonc', /#.*/g)
 
 console.log(parsedObject) // e.g. { "foo": "bar" }
 ```

@@ -1,20 +1,6 @@
 
 import { readFileSync, PathLike } from "fs";
 
-type CommentRuleObject = {
-    /** A `RegExp` matching commented text. */
-    rule: RegExp;
-    /**
-     * If set to `"start"`, the next lines are parsed like they're inside the comment,
-     * until the parser will meet the line with an `"end"` multiline comment rule.
-     * 
-     * If not set at all, parser will threat the rule as the single-line comment.
-     * (i.e. parser will threat the next lines as a JSON contents, unless it will
-     * find a string matching the one of the `CommentRuleObject[]`).
-     */
-    multiline?: "start" | "end";
-};
-
 /** Parameters that can be parsed by `readFileSync` function of `fs` module. */
 type FsReadFileSyncParams = {
     /** Path to file, same as `path` parameter in `readFileSync` function of `fs` module. */
@@ -45,7 +31,7 @@ const JSONC = {
      * 
      * @param file Object containing `path` to file and optionally its `encoding`.
      * 
-     * @param rules Additional comment rules to be included by the parser.
+     * @param rules An array of global regular expressions matching the comment in string.
      * 
      * @returns Parsed JavaScript object.
      * 
@@ -67,59 +53,27 @@ const JSONC = {
      * jsonParseWithComments({path:'/path/to/file.json'}) // returns object
      * 
      */
-    parse: (file: FsReadFileSyncParams, rules?: CommentRuleObject[]): Record<string, unknown> => {
+    parse: (file: FsReadFileSyncParams, rules?: RegExp[]): Record<string, unknown> => {
 
         /* Do not parse JSON files (*.json) as JsonWithComments files (*.jsonc). */
         if (typeof (file.path) === 'string' && file.path.match('/^.*.json$') !== null)
             return JSON.parse(readFileSync(file.path).toString(file.encoding));
 
-        const dataString = readFileSync(file.path).toString(file.encoding);
+        let data = readFileSync(file.path).toString(file.encoding);
 
-        /* Determine correct newline character */
-        let newline: string;
-        if (dataString.includes('\r\n'))
-            newline = '\r\n';
-        else if (dataString.includes('\r'))
-            newline = '\r';
-        else
-            newline = '\n';
-
-        const data = dataString.split(newline);
-        const dataJson: string[] = [];
-
-        // Default set of the comment rules
-        const commentRules: CommentRuleObject[] = [
-            { rule: /\/\/.*/ },                       // C like comments: `// example`
-            { rule: /\/\*.*\*\//g },                  // C++ like comments: `/* example */`
-            { rule: /\/\*.*/, multiline: "start" },  // Start of multiline comments: `/* example`
-            { rule: /.*\*\/$/, multiline: "end" },    // End of multiline comments: `example */`
+        /* Default set of the comment rules */
+        const commentRules: RegExp[] = [
+            /\/\/.*/g,           // single line comments: `// example`
+            /\/\*[\s\S]*?\*\//g  // block comments: `/* example */`
         ];
 
-        // Allow for additional comment rules
+        /* Allow for additional comment rules */
         if (rules) commentRules.concat(rules);
 
-        /** Whenever next line might be in multiline comment */
-        let inCommentNext = false;
+        /* Actual code parsing the JSONC string (yep, that's all). */
+        for (const rule of commentRules) data = data.replaceAll(rule, '');
 
-        for (const line of data) {
-
-            /** Whenever currently tested line might be in multiline comment */
-            let inComment: boolean = inCommentNext;
-
-            let newLine = line;
-
-            for (const ruleObject of commentRules) {
-                if (newLine.match(ruleObject.rule) && ruleObject.multiline === 'start') inCommentNext = true;
-                if (newLine.match(ruleObject.rule) && ruleObject.multiline === 'end' && inComment === true)
-                    inComment = inCommentNext = false;
-                newLine = newLine.replace(ruleObject.rule, '');
-            }
-
-            if (!inComment) dataJson.push(newLine);
-        }
-
-        const jsonStringified = dataJson.join(newline);
-        return JSON.parse(jsonStringified);
+        return JSON.parse(data);
     }
 };
 
