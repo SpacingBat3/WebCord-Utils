@@ -1,6 +1,6 @@
 # JSONC Parser
 
-A simple module to parse *JSON with comments* files to JavaScript object.
+A simple module to parse *JSON with comments* files with the magic of `RegExp`.
 
 It allows for the specifying your own comments `RegExp`'s as I couldn't found
 any information about JSONC being standarized (so for instance, if your JSONC
