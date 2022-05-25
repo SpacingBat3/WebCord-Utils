@@ -1,8 +1,21 @@
 {
   "name": "@spacingbat3/jsonc-parser",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Simple JSON with Comments file parser.",
   "main": "dist/jsoncParser.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/jsoncParser.d.ts",
+          "default": "./dist/jsoncParser.js"
+      },
+      "require": {
+        "types": "./types/jsoncParser.d.cts",
+        "default": "./dist/jsoncParser.cjs"
+      }
+    }
+  },
   "scripts": {
     "prepack": "tsc"
   },

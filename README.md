@@ -2,9 +2,9 @@
 
 Some Node.js and Electron.js modules adapted to work with the other projects.
 
-Some of the modules might be missing as there's some job to be done to publish
-them. Most of them don't have any README file published within them, so be
-patient and wait once I'll properly document them.
+In general, I put there modules that were previously a part of WebCord, but I've
+decided to seperate them – either since I saw they could be a part of another
+projects as well or their code is too generic to be just a part of WebCord.
 
 Much more likely you will find these modules documented via JSDocs comments, so
 if your editor is capable of parsing them (e.g. VSCode does that) you should

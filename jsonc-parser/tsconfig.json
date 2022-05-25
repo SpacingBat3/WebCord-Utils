@@ -3,9 +3,12 @@
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "target": "ES2021",
     /* Specify what module code is generated. */
-    "module": "commonjs",
+    "module": "Node16",
     /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
     "declaration": true,
+    "declarationMap": true,
+    /* Specify the output directory for generated declaration files. */
+    "declarationDir": "./types",
     /* Create source map files for emitted JavaScript files. */
     "sourceMap": true,                                
     /* Specify an output folder for all emitted files. */
@@ -16,6 +19,6 @@
     "skipLibCheck": true                                 
   },
   "include": [
-    "sources/**/*.ts"
+    "sources/*.ts"
   ],
 }

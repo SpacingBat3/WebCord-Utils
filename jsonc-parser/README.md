@@ -12,14 +12,14 @@ additional rule as well).
 ### CommonJS
 
 ```js
-const JSONC = require('@spacingbat3/jsonc-parser')
+const JSONC = require('@spacingbat3/jsonc-parser').default
 
 const parsedObject = JSONC.parse('file.jsonc')
 
 console.log(parsedObject) // e.g. { "foo": "bar" }
 ```
 
-### ES6 / TypeScript
+### ESM / TypeScript
 
 ```ts
 import JSONC from '@spacingbat3/jsonc-parser'
