@@ -1,6 +1,6 @@
 {
   "name": "@spacingbat3/jsonc-parser",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Simple JSON with Comments file parser.",
   "main": "dist/jsoncParser.js",
   "type": "module",
@@ -43,5 +43,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "types": "./types"
 }
